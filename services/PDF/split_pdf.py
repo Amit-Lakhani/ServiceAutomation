@@ -10,6 +10,7 @@ split_pdf_bp = Blueprint("split_pdf", __name__)
 UPLOAD_FOLDER = "uploads"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
+#Comment Checking
 split_pdf_config = {
     "name": "Split PDF",
     "endpoint": "/api/split-pdf",
