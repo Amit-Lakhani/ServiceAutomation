@@ -12,7 +12,7 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 extract_text_from_pdf_config = {
     "name": "Extract Text from PDF",
-    "endpoint": "/api/extract_text",
+    "endpoint": "/api/extract-text",
     "fields": [
         {
             "type": "file",
@@ -26,7 +26,7 @@ extract_text_from_pdf_config = {
     }
 }
 
-@extract_text_bp.route("/api/extract_text", methods=["POST"])
+@extract_text_bp.route("/api/extract-text", methods=["POST"])
 def extract_text():
     file = request.files.get("pdf_file")
     if not file:

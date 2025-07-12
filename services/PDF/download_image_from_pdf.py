@@ -12,7 +12,7 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 download_image_from_pdf_config = {
     "name": "Extract Images from PDF",
-    "endpoint": "/api/extract_images",
+    "endpoint": "/api/extract-images",
     "fields": [
         {
             "type": "file",
@@ -51,7 +51,7 @@ def extract_images_from_pdf(reader, base_name):
                     counter += 1
     return images
 
-@download_image_bp.route("/api/extract_images", methods=["POST"])
+@download_image_bp.route("/api/extract-images", methods=["POST"])
 def extract_images():
     file = request.files.get("pdf_file")
     if not file:

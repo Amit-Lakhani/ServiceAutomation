@@ -12,7 +12,7 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 split_pdf_config = {
     "name": "Split PDF",
-    "endpoint": "/api/split_pdf",
+    "endpoint": "/api/split-pdf",
     "fields": [
         {
             "type": "file",
@@ -23,10 +23,11 @@ split_pdf_config = {
     ],
     "response": {
         "type": "file"
-    }
+    },
+  "curl": "curl -X POST http://yourdomain.com/api/split_pdf \\\n  -F 'split_pdf=@path/to/file.pdf' \\\n  -H 'Authorization: Bearer <your_token_here>'"
 }
 
-@split_pdf_bp.route("/api/split_pdf", methods=["POST"])
+@split_pdf_bp.route("/api/split-pdf", methods=["POST"])
 def split_pdf():
     file = request.files.get("split_pdf")
     if not file:

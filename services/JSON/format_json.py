@@ -5,7 +5,7 @@ format_json_bp = Blueprint("format_json", __name__)
 
 format_json_config = {
     "name": "Format JSON",
-    "endpoint": "/api/format_json",
+    "endpoint": "/api/format-json",
     "fields": [
         {
             "type": "textarea",
@@ -19,7 +19,7 @@ format_json_config = {
     }
 }
 
-@format_json_bp.route("/api/format_json", methods=["POST"])
+@format_json_bp.route("/api/format-json", methods=["POST"])
 def format_json():
     try:
         raw_json = request.form.get("format_json", "")

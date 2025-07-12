@@ -11,7 +11,7 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 compress_pdf_config = {
     "name": "Compress PDF",
-    "endpoint": "/api/compress_pdf",
+    "endpoint": "/api/compress-pdf",
     "fields": [
         {
             "type": "file",
@@ -25,7 +25,7 @@ compress_pdf_config = {
     }
 }
 
-@compress_pdf_bp.route("/api/compress_pdf", methods=["POST"])
+@compress_pdf_bp.route("/api/compress-pdf", methods=["POST"])
 def compress_pdf():
     file = request.files.get("compress_pdf")
     if not file:

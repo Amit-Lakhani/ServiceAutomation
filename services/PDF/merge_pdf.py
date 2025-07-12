@@ -12,7 +12,7 @@ os.makedirs(RESULT_FOLDER, exist_ok=True)
 
 merge_pdf_config = {
     "name": "Merge PDF",
-    "endpoint": "/api/merge_pdf",
+    "endpoint": "/api/merge-pdf",
     "fields": [
         {
             "type": "file",
@@ -27,7 +27,7 @@ merge_pdf_config = {
     }
 }
 
-@merge_pdf_bp.route("/api/merge_pdf", methods=["POST"])
+@merge_pdf_bp.route("/api/merge-pdf", methods=["POST"])
 def merge_pdf():
     files = request.files.getlist("merge_pdf")
     if not files:

@@ -12,7 +12,7 @@ os.makedirs(RESULT_FOLDER, exist_ok=True)
 
 pdf_to_word_config = {
     "name": "PDF to Word",
-    "endpoint": "/api/pdf_to_word",
+    "endpoint": "/api/pdf-to-word",
     "fields": [
         {
             "type": "file",
@@ -26,7 +26,7 @@ pdf_to_word_config = {
     }
 }
 
-@pdf_to_word_bp.route("/api/pdf_to_word", methods=["POST"])
+@pdf_to_word_bp.route("/api/pdf-to-word", methods=["POST"])
 def pdf_to_word():
     file = request.files.get("pdf_file")
     if not file:

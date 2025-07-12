@@ -14,7 +14,7 @@ os.makedirs(RESULT_FOLDER, exist_ok=True)
 
 flatten_pdf_config = {
     "name": "Flatten PDF",
-    "endpoint": "/api/flatten_pdf",
+    "endpoint": "/api/flatten-pdf",
     "fields": [
         {
             "type": "file",
@@ -28,7 +28,7 @@ flatten_pdf_config = {
     }
 }
 
-@flatten_pdf_bp.route("/api/flatten_pdf", methods=["POST"])
+@flatten_pdf_bp.route("/api/flatten-pdf", methods=["POST"])
 def flatten_pdf():
     file = request.files.get("pdf_file")
     if not file:

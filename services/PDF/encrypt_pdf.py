@@ -11,7 +11,7 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 encrypt_pdf_config = {
     "name": "Encrypt PDF",
-    "endpoint": "/api/encrypt_pdf",
+    "endpoint": "/api/encrypt-pdf",
     "fields": [
         {
             "type": "file",
@@ -31,7 +31,7 @@ encrypt_pdf_config = {
     }
 }
 
-@encrypt_pdf_bp.route("/api/encrypt_pdf", methods=["POST"])
+@encrypt_pdf_bp.route("/api/encrypt-pdf", methods=["POST"])
 def encrypt_pdf():
     file = request.files.get("pdf_file")
     password = request.form.get("password")

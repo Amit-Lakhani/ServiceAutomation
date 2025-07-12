@@ -24,6 +24,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     title.textContent = config.name;
     form.innerHTML = ""; // Clear previous fields
 
+
+    const curlBox = document.getElementById("curlCommandBox");
+    curlBox.value = config.curl || "No cURL command available";
+
+
+
     // Build form inputs
     config.fields.forEach(field => {
         const fieldElement = createInputField(field);
@@ -37,60 +43,66 @@ document.addEventListener("DOMContentLoaded", async () => {
     submitBtn.className = "bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700";
     form.appendChild(submitBtn);
 
-    // Submit handler
+
+    const loadingDotsLR = document.getElementById("loadingDotsLR");
+
     form.addEventListener("submit", async (e) => {
-        e.preventDefault();  // Always prevent default immediately
+        e.preventDefault();
+
+        loadingDotsLR.classList.remove("hidden");  // Show loader
 
         submitBtn.disabled = true;
         submitBtn.textContent = "Processing...";
 
-        const formData = new FormData(form);
-        const response = await fetch(config.endpoint, {
-            method: "POST",
-            body: formData
-        });
+        try {
+            const formData = new FormData(form);
+            const response = await fetch(config.endpoint, {
+                method: "POST",
+                body: formData,
+            });
 
-        if (response.ok) {
-            if (config.response.type === "file") {
-                const blob = await response.blob();
-                const downloadUrl = URL.createObjectURL(blob);
+            if (response.ok) {
+                if (config.response.type === "file") {
+                    const blob = await response.blob();
+                    const downloadUrl = URL.createObjectURL(blob);
 
-                // Extract filename from Content-Disposition header
-                const contentDisposition = response.headers.get("Content-Disposition");
-                let downloadName = "output.zip"; // fallback name
-                if (contentDisposition) {
-                    const fileNameMatch = contentDisposition.match(/filename="?([^"]+)"?/);
-                    if (fileNameMatch && fileNameMatch[1]) {
-                        downloadName = fileNameMatch[1];
+                    const contentDisposition = response.headers.get("Content-Disposition");
+                    let downloadName = "output.zip";
+                    if (contentDisposition) {
+                        const match = contentDisposition.match(/filename="?([^"]+)"?/);
+                        if (match && match[1]) downloadName = match[1];
                     }
+
+                    const a = document.createElement("a");
+                    a.href = downloadUrl;
+                    a.download = downloadName;
+                    document.body.appendChild(a);
+                    a.click();
+                    a.remove();
+                    URL.revokeObjectURL(downloadUrl);
+
+                    resultDiv.textContent = "Download started...";
+                } else if (config.response.type === "text") {
+                    const text = await response.text();
+                    resultDiv.textContent = text;
+                } else {
+                    const text = await response.text();
+                    resultDiv.textContent = text;
                 }
-
-                const a = document.createElement("a");
-                a.href = downloadUrl;
-                a.download = downloadName;
-                document.body.appendChild(a);
-                a.click();
-                a.remove();
-                URL.revokeObjectURL(downloadUrl);
-
-                resultDiv.textContent = "Download started...";
-
-            } else if (config.response.type === "text") {
-                const text = await response.text();
-                resultDiv.textContent = text;
             } else {
                 const text = await response.text();
-                resultDiv.textContent = text;
+                resultDiv.textContent = "Error: " + text;
             }
-        } else {
-            const text = await response.text();
-            resultDiv.textContent = "Error: " + text;
+        } catch (error) {
+            resultDiv.textContent = "Error: " + error.message;
+        } finally {
+            loadingDotsLR.classList.add("hidden");  // Hide loader
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Submit";
         }
-
-        submitBtn.disabled = false;
-        submitBtn.textContent = "Submit";
-
     });
+
+
 
 });
 

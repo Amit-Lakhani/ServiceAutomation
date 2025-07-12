@@ -15,7 +15,7 @@ os.makedirs(RESULT_FOLDER, exist_ok=True)
 
 pdf_form_filler_config = {
     "name": "PDF Form Filler",
-    "endpoint": "/api/pdf_form_filler",
+    "endpoint": "/api/pdf-form-filler",
     "fields": [
         {
             "type": "file",
@@ -52,7 +52,7 @@ def fill_pdf(input_pdf_path, data_dict, output_pdf_path):
                 annotation.update(PdfDict(AP=''))
     PdfWriter().write(output_pdf_path, template_pdf)
 
-@pdf_form_filler_bp.route("/api/pdf_form_filler", methods=["POST"])
+@pdf_form_filler_bp.route("/api/pdf-form-filler", methods=["POST"])
 def pdf_form_filler():
     file = request.files.get("pdf_file")
     form_data = request.form.get("form_data")

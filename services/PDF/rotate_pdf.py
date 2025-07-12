@@ -13,7 +13,7 @@ os.makedirs(RESULT_FOLDER, exist_ok=True)
 
 rotate_pdf_config = {
     "name": "Rotate PDF",
-    "endpoint": "/api/rotate_pdf",
+    "endpoint": "/api/rotate-pdf",
     "fields": [
         {
             "type": "file",
@@ -33,7 +33,7 @@ rotate_pdf_config = {
     }
 }
 
-@rotate_pdf_bp.route("/api/rotate_pdf", methods=["POST"])
+@rotate_pdf_bp.route("/api/rotate-pdf", methods=["POST"])
 def rotate_pdf():
     file = request.files.get("pdf_file")
     if not file:

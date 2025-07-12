@@ -6,7 +6,7 @@ json_to_xml_bp = Blueprint("json_to_xml", __name__)
 
 json_to_xml_config = {
     "name": "Convert JSON to XML",
-    "endpoint": "/api/json_to_xml",
+    "endpoint": "/api/json-to-xml",
     "fields": [
         {
             "type": "textarea",
@@ -20,7 +20,7 @@ json_to_xml_config = {
     }
 }
 
-@json_to_xml_bp.route("/api/json_to_xml", methods=["POST"])
+@json_to_xml_bp.route("/api/json-to-xml", methods=["POST"])
 def json_to_xml():
     json_data = request.form.get("json_to_xml")
     if not json_data:

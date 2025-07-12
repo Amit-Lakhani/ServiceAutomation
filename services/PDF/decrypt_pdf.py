@@ -11,7 +11,7 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 decrypt_pdf_config = {
     "name": "Decrypt PDF",
-    "endpoint": "/api/decrypt_pdf",
+    "endpoint": "/api/decrypt-pdf",
     "fields": [
         {
             "type": "file",
@@ -31,7 +31,7 @@ decrypt_pdf_config = {
     }
 }
 
-@decrypt_pdf_bp.route("/api/decrypt_pdf", methods=["POST"])
+@decrypt_pdf_bp.route("/api/decrypt-pdf", methods=["POST"])
 def decrypt_pdf():
     file = request.files.get("pdf_file")
     password = request.form.get("password")
